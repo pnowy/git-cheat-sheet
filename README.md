@@ -1,6 +1,6 @@
 # GITTE - GIT USEFUL COMMANDS
 
-##### Commands marked with '=>' are aliases.
+##### Commands marked with '=>' are aliases. See .gitconfig file for details.
 
 
 Create a new local repository
