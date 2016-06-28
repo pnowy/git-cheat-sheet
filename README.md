@@ -126,10 +126,7 @@ UPDATE FORK
 3. Make sure that you're on your master branch:   
 ```git checkout master```
 4. Rewrite your master branch so that any commits of yours that aren't already in upstream/master are replayed on top of that other branch:   
-```
-   git rebase upstream/master 
-   git push -f origin master
-```
+```git rebase upstream/master && git push -f origin master```
 
 So everything looks like:
 ```
