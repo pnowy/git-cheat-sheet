@@ -1,35 +1,38 @@
 # GITTE - GIT USEFUL COMMANDS
 
-Commands marked with '=>' are aliases.
+##### Commands marked with '=>' are aliases.
+
 
 Create a new local repository
 ```
-	git init                                        // init empty repository
-	git clone remoteRepoAddress localDirectory      // clone git repo to local directory
-	=> git makegitrepo                              // create git repo, add README.md file and make initial commit
+git init                           // init empty repository
+git clone remoteRepo localDir      // clone git repo to local directory
+=> git makegitrepo                 // create git repo, add README.md file and make initial commit
 ```
+
 ------------------
 
-Add one or more files to staging (index):
-
-	git add <filename>		// add file with given filename
-	git add *				// add all files 	
-
--------------------
-Commit to local repo
-
-	git commit -m "Commit message"		// commit staged files
-	git commit -a -m "Commit message"	// stage and commit files
+Staging & commit :
+```
+git add <filename>		// add file with given filename
+git add *				// add all files 	
+git commit -m "Commit message"		// commit staged files
+git commit -a -m "Commit message"	// stage and commit files with message
+=> git save "Commit message"		// stage and commit files with message
+```
 
 -------------------
-Undo local changes && Diff
 
-	git checkout -- <filename> 		// undo specific file
-	git diff <branch name>	// compare changes with other branch
-	git diff --stat <branchOne> <branchSecond>	// compare two branches based on statistics
-	git revert <commit> // generate a new commit that undoes all of the changes introduced in <commit>
+Undo local changes && differences
+```
+git checkout -- <filename> 						// undo specific file
+git diff <branch name>							// compare changes with other branch
+git diff --stat <firstBranch> <secondBranch>	// compare two branches based on statistics
+git revert <commit> 		// generate a new commit that undoes all of the changes introduced in <commit>
+```
 
 -------------------
+
 Repo status
 
 	git status
