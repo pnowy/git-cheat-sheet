@@ -1,1 +1,46 @@
-
+[user]
+	name = John Doe
+	email = john.doe@example.com
+[core]
+	# This means that Git will process all text files and make sure that CRLF is replaced with LF when writing that file to the object database 
+	# and turn all LF back into CRLF when writing out into the working directory. 
+	autocrlf = true
+[push]
+	# push the current branch to its upstream branch (synchronization only current branch)
+  # default = upstream
+	default = simple
+[branch]
+	# If the option is true, then branches are tracked if they are remote, and not tracked if they are local
+    autosetupmerge = true
+[color]
+    ui = auto
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = red
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[alias]
+	#info about status
+	s = status
+	ss = status -s
+	ssb = status -sb
+	# stage all files and make commit
+	save = !git add -A && git commit -m "\"$@\"" && shift 1 && echo Saved!
+	
+	# Show the commits with timestamp, author and tags
+  llog = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
+	
+	#branches
+	bbranch = branch -v
+  branches = branch -avv
+	
+	# init git repo and create README.md and make initial git commit
+  makegitrepo = !git init && touch README.md && git add . && git commit -m \"Initial commit\"
