@@ -147,6 +147,12 @@ git push --tags origin                              // push all tags to remote r
 
 -------------------
 
+##### GitHub & JIRA
+```
+=> git fetchpr [ID]                       // fetch PR from GitHub by number/id
+=> git issues                             // display JIRA ticket from commit messages
+```
+
 # TIPS & TRICKS
 
 ##### Rebasing new branch instead of merging
@@ -210,7 +216,7 @@ There is a special alias ```updatefork``` in order to fetch upstream, checkout m
 
 ### Sources:
 
-- https://github.com/jakubnabrdalik/gitkurwa (see there the links to source of that great set of aliases)
+- https://github.com/jakubnabrdalik/gitkurwa (see there the links to source of that great set of aliases), it was main inspiration for this Cheat Sheet
 - http://helion.pl/ksiazki/git-rozproszony-system-kontroli-wersji-wlodzimierz-gajda,gitroz.htm
 - ZeroTurnaround Git Cheat Sheet
 - StackOverflow :)
