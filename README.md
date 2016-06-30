@@ -4,7 +4,7 @@
 
 ##### Useful commands
 ```
-=> git alias
+=> git alias                             // list defined aliases
 git [command] --help                     // display help for specified command
 ```
 
