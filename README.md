@@ -2,23 +2,36 @@
 
 ##### Commands marked with '=>' are aliases. See .gitconfig file for details.
 
+Display defined aliases
+```
+=> git alias
+```
 
-Create a new local repository
+-------------------
+
+Create a new repository
 ```
 git init                           // init empty repository
 git clone remoteRepo localDir      // clone git repo to local directory
 => git makegitrepo                 // create git repo, add README.md file and make initial commit
 ```
 
+-------------------
+
+Repo status
+```
+=> git s                                       // git status
+=> git st                                      // git status -sb
+```
 ------------------
 
 Staging & commit :
 ```
-git add <filename>		// add file with given filename
-git add *				// add all files 	
-git commit -m "Commit message"		// commit staged files
-git commit -a -m "Commit message"	// stage and commit files with message
-=> git save "Commit message"		// stage and commit files with message
+git add <filename>                              // add file with given filename
+git add *                                       // add all files 	
+=> git co -m "Commit message"                   // commit staged files
+=> git save Commit message                      // stage and commit files with message
+=> git amend Commit message                     // make stage & commit with amend 
 ```
 
 -------------------
@@ -32,12 +45,6 @@ git revert <commit> 		// generate a new commit that undoes all of the changes in
 ```
 
 -------------------
-
-Repo status
-
-	git status
-
--------------------
 Remote repositories
 
 	git remote 		// check defined remote repositories
@@ -45,22 +52,25 @@ Remote repositories
 
 -------------------
 Branches
+```
+git br                                                  // git branch
+git ch                                                  // git checkout
 
-	git branch -v 		// list of local branches
-	git branch -r		// list of remote branches
-	git branch <branch name>	// create new local branch with given name
-	git branch -d <branch name>	// delete branch with given name
-	git checkout <branch name> 	// switch to specific branch
-	git checkout -b <branch name>	// create and swith to new branch
+git branch -v 		// list of local branches
+git branch -r		// list of remote branches
+git branch <branch name>	// create new local branch with given name
+git branch -d <branch name>	// delete branch with given name
+git checkout <branch name> 	// switch to specific branch
+git checkout -b <branch name>	// create and swith to new branch
 
-	git merge <branch name>	// merge to actual branch from given branch name
-	git merge --no-ff <branch name>	// merge to actual branch without fast forward
-	git merge <branch name> --no-commit --no-ff // merge to actual branch without fast forward and auto commit
+git merge <branch name>	// merge to actual branch from given branch name
+git merge --no-ff <branch name>	// merge to actual branch without fast forward
+git merge <branch name> --no-commit --no-ff // merge to actual branch without fast forward and auto commit
 
-	# for rebasing new branch instead of merging
-	git checkout experiment # switch to that branch
-	git rebase master # rebase it to selected branch, in this case move it on the top of the master
-
+# for rebasing new branch instead of merging
+git checkout experiment # switch to that branch
+git rebase master # rebase it to selected branch, in this case move it on the top of the master
+```
 -------------------
 Push && Pull
 
@@ -136,3 +146,8 @@ git checkout master // no needed if you are on master
 git rebase upstream/master 
 git push -f origin master
 ```
+
+#### Sources:
+
+- https://github.com/jakubnabrdalik/gitkurwa
+- http://helion.pl/ksiazki/git-rozproszony-system-kontroli-wersji-wlodzimierz-gajda,gitroz.htm?utm_campaign=videopoint&utm_medium=redirect&utm_source=
