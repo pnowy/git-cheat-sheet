@@ -55,7 +55,8 @@
     purr = pull --rebase
     puff = pull --ff-only
     rp   = rev-parse --short=4
-    squashmerge = merge --squash
+    mergesquash = merge --squash
+    squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
 	
 	#TAGS
 	tags = show-ref --tags
