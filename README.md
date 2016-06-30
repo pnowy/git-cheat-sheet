@@ -1,4 +1,4 @@
-# GITTE - GIT CHEAT SHEET
+# GIT CHEAT SHEET
 
 ##### Commands marked with '=>' are aliases. See .gitconfig file for details.
 
