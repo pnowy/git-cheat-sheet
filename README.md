@@ -1,15 +1,15 @@
-# GITTE - GIT USEFUL COMMANDS / GIT CHEAT SHEET
+# GITTE - GIT CHEAT SHEET
 
 ##### Commands marked with '=>' are aliases. See .gitconfig file for details.
 
-Display defined aliases
+##### Display defined aliases
 ```
 => git alias
 ```
 
 -------------------
 
-Create a repository
+##### Create a repository
 ```
 git init                               // init empty repository
 git clone [remoteRepo] [localDir]      // clone git repo to local directory
@@ -18,10 +18,11 @@ git clone [remoteRepo] [localDir]      // clone git repo to local directory
 
 -------------------
 
-Observe your repository
+##### Observe your repository
 ```
 => git s                                       // git status
 => git st                                      // git status -sb
+=> git stat                                    // repository statistics
 git diff                                       // show changes to files not yet staged
 => git difff                                   // highlight changed words using only colors (without plus and minus)
 git diff HEAD                                  // show all staged and unstaged changes
@@ -37,10 +38,11 @@ git log -p [file/directory]                    // show change history for file/d
 => git histfull                                // show pretty graph with history + changed files
 => git changelog                               // show commit messages list
 => git changelogextended                       // show commit messages list with date, author, etc.
+=> git days                                    // dates of commits
 ```
 ------------------
 
-Make a change :
+##### Make a change :
 ```
 git add [file]                                  // stage a file with given filename
 git add .                                       // stage all changed files, ready for commit
@@ -55,7 +57,7 @@ git revert [commit]                             // generate a new commit that un
 ```
 
 -------------------
-Stash
+##### Stash
 ```
 git stash list                                   // show stashes
 git stash                                        // save stash
@@ -67,30 +69,28 @@ git stash drop                                   // clear stash
 
 -------------------
 
-Working with branches
+##### Working with branches
 ```
-git br                                                  // git branch
-git ch                                                  // git checkout
-
-git branch -v 		// list of local branches
-git branch -r		// list of remote branches
-git branch <branch name>	// create new local branch with given name
-git branch -d <branch name>	// delete branch with given name
-git checkout <branch name> 	// switch to specific branch
-git checkout -b <branch name>	// create and swith to new branch
-
-git merge <branch name>	// merge to actual branch from given branch name
-git merge --no-ff <branch name>	// merge to actual branch without fast forward
-git merge <branch name> --no-commit --no-ff // merge to actual branch without fast forward and auto commit
-
-# for rebasing new branch instead of merging
-git checkout experiment # switch to that branch
-git rebase master # rebase it to selected branch, in this case move it on the top of the master
+=> git br                                          // git branch
+git branch                                         // list all local branches
+git branch -r                                      // list of remote branches
+=> git bbranch                                     // extended info about local branches
+=> git branches                                    // detailed info about local and remote branches
+=> git ch                                          // git checkout
+git checkout [branch]                              // switch to specific branch
+git checkout -b [branch]                           // create and swith to new branch
+git branch [branch]                                // create new local branch with given name
+git branch -d [branch]                             // delete branch with given name
+git merge [branch]                                 // merge to actual branch from given branch name
+git checkout [branchB] && git merge [branchA]      // merge branchA into branchB
+git merge --no-ff [branch]                         // merge to actual branch without fast forward
+=> git mergenoff [branch]                          // merge to actual branch without fast forward
+git merge [branch] --no-commit --no-ff             // merge to actual branch without fast forward and auto commit
 ```
 
 -------------------
 
-Synchronize
+##### Synchronize
 ```
 git remote 		// check defined remote repositories
 git remote add origin <remote repo address> 	// add remote repository
@@ -103,7 +103,7 @@ git pull --rebase origin/master //get the changes and do rebase
 
 -------------------
 
-Tags
+##### Tags
 ```
 git tag											// list of tags
 git tag UMnieDziala								// create new tag
@@ -112,7 +112,15 @@ git tag 1.0.0 <commitID>	//use tagging to mark a significant changeset, such as 
 git push --tags origin 		//push all tags to remote repository
 ```
 
+# TIPS & TRICKS
+
+##### Rebasing new branch instead of merging
+```
+git checkout experiment                // switch to that branch
+git rebase master                      // rebase it to selected branch, in this case move it on the top of the master
+```
 -------------------
+
 ##### Git Rebase For Linear History
 ```
 git commit
@@ -120,7 +128,9 @@ git pull
 git rebase -i origin/master
 git push origin master
 ```
+
 --------------------------
+
 #### Modify specified commit
 
 You can use git rebase, for example, if you want to modify back to commit bbc643cd, run
