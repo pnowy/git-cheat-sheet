@@ -28,19 +28,149 @@
 	old = red bold
 	new = green bold
 [alias]
-	#info about status
-	s = status
-	ss = status -s
-	ssb = status -sb
-	# stage all files and make commit
-	save = !git add -A && git commit -m "\"$@\"" && shift 1 && echo Saved!
+	# init empty git repo, create README.md file and make initial commit
+    makegitrepo = !git init && touch README.md && git add . && git commit -m \"Initial commit\"
 	
-	# Show the commits with timestamp, author and tags
-	llog = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso
+	#LAZY VERSIONS OF BASIC COMMANDS
+    co = commit
+    s = status
+	st = status -sb
+	ch = checkout
+    br = branch
+	sta = stash -u
 	
-	#branches
-	bbranch = branch -v
-	branches = branch -avv
+	#BETTER VERSIONS OF BASIC COMMANDS
+    alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1 => \\2/' | grep -v 'alias'| awk 'BEGIN { FS = \"=>\" }{ printf(\"%-20s=>%s\\n\", $1,$2)}'|sort
+	difff = diff --color-words #Highlight changed words using only colors (without pluses and minuses)
+	llog = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=iso -25
+	ltree = log --oneline --all --graph --decorate
+	hist = log --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset%n%w(80,8,8)%s' --graph
+    histfull = log --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset%n%w(80,8,8)%s%n' --graph --name-status
+	changelog = log --pretty=format:'%Cgreen%d %Creset%s' --date=iso
+    changelogextended = log --pretty=format:'%C(yellow)%p..%h %C(white dim)%cd %<|(49,trunc)%an %C(reset)%s' --date=short --abbrev=8 --no-merges
+	unstage = reset HEAD --
+	bbranch = branch -v    
+    branches = branch -avvl
+	mergenoff = merge --no-ff
+	purr = pull --rebase
+    puff = pull --ff-only
+    rp   = rev-parse --short=4
 	
-	# init git repo and create README.md and make initial git commit
-  	makegitrepo = !git init && touch README.md && git add . && git commit -m \"Initial commit\"
+	#TAGS
+	tags = show-ref --tags
+    pushtags = push --tags
+    tagwithdate = !sh -c 'git tag "$0"_$(date "+%y-%m-%d_%H-%M-%S")'
+    lasttag = describe --abbrev=0 --tags
+    checkoutlasttag = !sh -c 'git checkout `git describe --abbrev=0 --tags`'
+    # Pushes given tag to remote 'origin' repo (or the remote passed as the second parameter)
+    publishtag = "!sh -c 'git push ${2:-origin} $1' -"
+    # Removes given tag from remote 'origin' repo (or the remote passed as the second parameter)
+    unpublishtag = "!sh -c 'git push ${2:-origin} :refs/tags/$1' -"
+
+	#what branches you have on origin, with info on who is guilty and how long ago. Useful for gitflow and feature branches in general. Requires fetch up-front.
+    showorigin = "!sh -c 'for branch in `git branch -r | grep -v HEAD`;do echo `git show -s --format=\"%Cred%ci %C(green)%h %C(yellow)%cr %C(magenta)%an %C(blue)\" $branch | head -n 1` \\\t$branch; done | sort -r'"
+	 #get remote branches
+    trackallbranches = !sh -c "for branchname in `git branch -r `; do git branch --track $branchname; done" # get all remote branches
+    updateallbranches = !sh -c "for branchname in `git branch -r `; do git checkout $branchname ; git pull; done" # pull all remote branches
+    
+    #Finds a filename in the git repository. Gives absolute location (from the git root).
+    find = !sh -c 'git ls-tree -r --name-only HEAD | grep --color $1' - 
+	
+	# Gets the current branch name (not so useful in itself, but used in other aliases)
+    branch-name = "!git rev-parse --abbrev-ref HEAD"
+    # Pushes the current branch to the remote "origin" (or the remote passed as the parameter) and set it to track the upstream branch
+    publish = "!sh -c 'git push -u ${1:-origin} $(git branch-name)' -"
+    # Deletes the remote version of the current branch from the remote "origin" (or the remote passed as the parameter)
+    unpublish = "!sh -c 'set -e; git push ${1:-origin} :$(git branch-name);git branch --unset-upstream $(git branch-name)' -"
+	
+	# Basic repo information / what was going on while you were away
+	whois = "!sh -c 'git log -i -1 --pretty=\"format::%an <%ae>\n\" --author=\"$1\"' -"
+	whatis = show -s --pretty='tformat::%h (%s, %ad)' --date=short
+	howmany = "!sh -c 'git log -a --pretty=oneline | wc -l'"
+	howmanybywhom = shortlog -sn
+	anychanges = !sh -c 'git fetch' && git log --oneline HEAD..origin/$1
+	anychangesonmaster = !sh -c 'git fetch' && git log --oneline HEAD..origin/master
+	whoischanging = !sh -c 'git shortlog HEAD..origin/$0'
+	whoischangingmaster = !sh -c 'git shortlog HEAD..origin/master'
+	
+	# Alias: save - stage && save with provided message
+	# Example:
+	#
+	#   git save This is very important commit...
+	#   git save "This is very important commit..."
+	#	git save This is commit --amend 	=> the commit message will be: "This is commit --amend"
+	#	
+	save = "!save() { git add -A; git commit -m "\"$*\""; }; save"
+
+	# Alias: amend - typical stage & commit with amend
+	# Example:
+	#
+	#   git amend "This is very important commit..." => replace last commit
+	#		
+	amend = "!amend() { git add -A; git commit --amend -m "\"$*\""; }; amend"
+
+	# Alias: backup - make git save and push to repo
+	# Example:
+	#
+	#    git backup This is very important commit...
+	#    git backup "This is very important commit..."
+	#
+	backup = "!backup() { git snapshot "\"$*\""; git push; }; backup"
+
+	# Alias: stat - generate repo statistics
+	# Example:
+	#
+	#    git stat
+	#
+	# Result: 	The working directory: 2.1G
+	# 			The git directory: 314M  .git
+	# 			Commiters: 105
+	# 			Commits: 17388
+	#
+    stat = "!stat() { echo -n "The working directory: "; du -h -s --exclude=.git; echo -n "The git directory: "; du -h -s .git; echo -n "Commiters: "; git shortlog -s -n | wc -l; echo -n "Commits: "; git log --oneline | wc -l; }; stat"
+
+	# Alias: days - print dates of commits
+	# Example:
+	#
+	#    git days
+	#
+    days = "!days() { git log --pretty=format:"%cd" --date=short | uniq; }; days"
+	
+	updatefork = "!updatefork() { git fetch upstream; git checkout master; git rebase upstream/master; git push origin master; }; updatefork"
+	
+	# Fetch PR from GitHub by number/id
+    fetchpr = "!sh -c 'git fetch origin pull/$0/head:pr/$0'"
+	#version for git below 2.1
+    issues = !sh -c 'git log --oneline $@ | egrep -o [A-Z]+-[0-9]+ | sort | uniq' -
+	
+	## EDUCATIONAL ALIASES - TRAINING COMMANDS TO CREATE FAST COMMITS IN ORDER TO CHECK SOMETHING ON GIT / ETC. ##
+	
+	# Alias: simple-commit - create file x.txt and commit with message "x"
+	# Example: 
+	#		git simple-commit x 
+	simple-commit = !echo $1>$1.txt && git add -A && git commit -m "\"$@\"" && shift 1 && echo Simple comit done!
+	
+	# Alias simple-commits - create file x.txt, y.txt and z.txt with commit messages "x", "y" and "z"
+	# Example: 
+	#		git simple-commits x y z 
+	# 
+	simple-commits = "!simpleCommits() { for name in \"$@\"; do git simple-commit $name; done; }; simpleCommits"
+	
+	# Alias: simple-loop - create file x1.txt, x2.txt and x3.txt with commit messages "x1", "x2" and "x3"
+	# Example:
+	#		simple-loop x 3
+	# 
+	simple-loop = "!simpleLoop() { NAME=$1; i="1"; while [ $i -le $2 ]; do git simple-commit $NAME$i; i=$[$i+1]; done; }; simpleLoop"
+	
+	# Alias: makebranches - create new branches (a, b and c) in current place
+	# Example: 
+	#		branches a b c
+	# 
+	makebranches = "!makebranches() { for name in \"$@\"; do git branch $name; done; }; makebranches"
+
+	# Alias: clear - remove txt files and commit
+	# Example:
+	#    git clear
+	#
+        #clear = "!clear() { rm *.txt; git save "Cleared!"; }; clear"
+
