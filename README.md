@@ -23,7 +23,6 @@ git clone [remoteRepo] [localDir]      // clone git repo to local directory
 ```
 => git s                                       // git status
 => git st                                      // git status -sb
-=> git stat                                    // repository statistics
 git diff                                       // show changes to files not yet staged
 => git difff                                   // highlight changed words using only colors (without plus and minus)
 git diff HEAD                                  // show all staged and unstaged changes
@@ -135,14 +134,15 @@ git push --tags origin                              // push all tags to remote r
 
 ##### Basic repo information / what was going on while you were away
 ```
-whois = "!sh -c 'git log -i -1 --pretty=\"format::%an <%ae>\n\" --author=\"$1\"' -"
-whatis = show -s --pretty='tformat::%h (%s, %ad)' --date=short
-howmany = "!sh -c 'git log -a --pretty=oneline | wc -l'"
-howmanybywhom = shortlog -sn
-anychanges = !sh -c 'git fetch' && git log --oneline HEAD..origin/$1
-anychangesonmaster = !sh -c 'git fetch' && git log --oneline HEAD..origin/master
-whoischanging = !sh -c 'git shortlog HEAD..origin/$0'
-whoischangingmaster = !sh -c 'git shortlog HEAD..origin/master'
+=> git stat                              // repository statistics
+=> git whois                             // display the user information
+=> git whatis [branch/tag/name]          // telling us what was the last commit in specified branch/tag/name 
+=> git howmany                           // display the number of commits
+=> git howmanybywhom                     // group number of commits by users
+=> git anychanges [branch]               // do we have any changes on origin for specified branch
+=> git anychangesonmaster                // do we have any changes on origin/master
+=> git whoischanging [branch]            // who does introduce the changes on the specified branch from last pull
+=> git whoischangingmaster               // who does introduce the change on master from last pull
 ```
 
 -------------------
@@ -166,7 +166,7 @@ git push origin master
 
 --------------------------
 
-#### Modify specified commit
+##### Modify specified commit
 
 You can use git rebase, for example, if you want to modify back to commit bbc643cd, run
 
@@ -186,8 +186,7 @@ to modify the commit, and after that
 
 --------------------------
 
-
-UPDATE FORK
+##### UPDATE FORK
 
 1. Add the remote, call it "upstream":  
 ```git remote add upstream https://github.com/whoever/whatever.git```
@@ -207,7 +206,9 @@ git rebase upstream/master
 git push -f origin master
 ```
 
-#### Sources:
+There is a special alias ```updatefork``` in order to fetch upstream, checkout master, rebase and push to our origin repo.
+
+### Sources:
 
 - https://github.com/jakubnabrdalik/gitkurwa (see there the links to source of that great set of aliases)
 - http://helion.pl/ksiazki/git-rozproszony-system-kontroli-wersji-wlodzimierz-gajda,gitroz.htm
