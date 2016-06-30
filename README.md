@@ -2,9 +2,10 @@
 
 ##### Commands marked with '=>' are aliases. See .gitconfig file for details.
 
-##### Display defined aliases
+##### Useful commands
 ```
 => git alias
+git [command] --help                     // display help for specified command
 ```
 
 -------------------
@@ -39,7 +40,10 @@ git log -p [file/directory]                    // show change history for file/d
 => git changelog                               // show commit messages list
 => git changelogextended                       // show commit messages list with date, author, etc.
 => git days                                    // dates of commits
+=> git rp                                      // rev-parse --short=4
+=> git find [name]                             // finds a filename in the git repository, gives absolute location
 ```
+
 ------------------
 
 ##### Make a change :
@@ -64,7 +68,7 @@ git stash                                        // save stash
 git stash apply                                  // get the changes from top/last stash
 git stash apply [id]                             // get the changes from specified stash
 git stash drop                                   // clear stash
-=> git sth                                       // stash with untracked files too
+=> git sta                                       // stash with untracked files too
 ```
 
 -------------------
@@ -77,8 +81,9 @@ git branch -r                                      // list of remote branches
 => git bbranch                                     // extended info about local branches
 => git branches                                    // detailed info about local and remote branches
 => git ch                                          // git checkout
-git checkout [branch]                              // switch to specific branch
-git checkout -b [branch]                           // create and swith to new branch
+git checkout [branch]                              // switch to specific branch / for never version of Git get remote branch+tracking
+git checkout -b [branch] origin/[branch]           // for older version of Git checkout remote branch
+git checkout -b [branch]                           // create and switch to new branch
 git branch [branch]                                // create new local branch with given name
 git branch -d [branch]                             // delete branch with given name
 git merge [branch]                                 // merge to actual branch from given branch name
@@ -92,25 +97,55 @@ git merge [branch] --no-commit --no-ff             // merge to actual branch wit
 
 ##### Synchronize
 ```
-git remote 		// check defined remote repositories
-git remote add origin <remote repo address> 	// add remote repository
-git push -u origin <branch name>		// push given branch to origin remote repo with tracking
-git push origin --delete quickFix	// delete remote branch
-git fetch origin		// get the changes from remote repo (without merge)
-git pull origin/master	// get the changes and merge
-git pull --rebase origin/master //get the changes and do rebase
+git fetch                                          // get the latest changes from origin (no merge)
+git pull                                           // fetch the latest changes from origin and merge
+=> git purr                                        // fetch the latest changes from origin and rebase (pull --rebase)
+=> git puff                                        // pull with fast forward only (pull --ff-only)
+git remote                                         // check defined remote repositories
+git remote add origin [remoteRepo]                 // add remote repository
+git push -u origin [branch]                        // push given branch to origin remote repo with tracking
+=> git publish                                     // pushes the current branch to the origin (or different repo if is provided as param)
+=> git unpublish                                   // deletes the remote version of current branch in origin (or different repo if provided as param)
+git push origin --delete [branch]                  // delete remote branch
+=> git trackallbranches                            // get all remote branches
+=> git updateallbranches                           // pull (update) all remote branches
+=> git showorigin                                  // display the branches on origin, who modified, when, etc. useful for gitflow
 ```
 
 -------------------
 
 ##### Tags
 ```
-git tag											// list of tags
-git tag UMnieDziala								// create new tag
-git tag -a UMnieDziala -m "Tag message" 		// create new tag with message
-git tag 1.0.0 <commitID>	//use tagging to mark a significant changeset, such as a release
-git push --tags origin 		//push all tags to remote repository
+git tag                                             // list of tags
+=> git tags                                         // display tags with hashes
+git tag -d [tagName]                                // delete the tag with specified name
+git tag [tagName]                                   // tag the current commit
+git tag -a [tagName] -m ["Tag message"]             // create new tag with message
+git tag [tagName] [commitID]                        // use tagging to mark a significant changeset, such as a release
+git push --tags origin                              // push all tags to remote repository
+=> git pushtags                                     // push all tags (push --tags)
+=> git tagwithdate [prefix]                         // create tag with prefix and date (PREFIX_12-01-12_15-25-25)
+=> git lasttag                                      // display last tag
+=> git checkoutlasttag                              // checkout the last tag
+=> git publishtag [tagName] [repo | null]           // pushes given tag to remote repo (or origin if repo is not provided)
+=> git unpublishtag [tagName] [repo | null]         // removes given tag from remote repo (or origin if repo is not provided)
 ```
+
+-------------------
+
+##### Basic repo information / what was going on while you were away
+```
+whois = "!sh -c 'git log -i -1 --pretty=\"format::%an <%ae>\n\" --author=\"$1\"' -"
+whatis = show -s --pretty='tformat::%h (%s, %ad)' --date=short
+howmany = "!sh -c 'git log -a --pretty=oneline | wc -l'"
+howmanybywhom = shortlog -sn
+anychanges = !sh -c 'git fetch' && git log --oneline HEAD..origin/$1
+anychangesonmaster = !sh -c 'git fetch' && git log --oneline HEAD..origin/master
+whoischanging = !sh -c 'git shortlog HEAD..origin/$0'
+whoischangingmaster = !sh -c 'git shortlog HEAD..origin/master'
+```
+
+-------------------
 
 # TIPS & TRICKS
 
@@ -174,6 +209,10 @@ git push -f origin master
 
 #### Sources:
 
-- https://github.com/jakubnabrdalik/gitkurwa
-- http://helion.pl/ksiazki/git-rozproszony-system-kontroli-wersji-wlodzimierz-gajda,gitroz.htm?utm_campaign=videopoint&utm_medium=redirect&utm_source=
+- https://github.com/jakubnabrdalik/gitkurwa (see there the links to source of that great set of aliases)
+- http://helion.pl/ksiazki/git-rozproszony-system-kontroli-wersji-wlodzimierz-gajda,gitroz.htm
 - ZeroTurnaround Git Cheat Sheet
+- StackOverflow :)
+
+
+### Feel free to create pull request!
