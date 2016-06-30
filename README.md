@@ -42,13 +42,27 @@ git log -p [file/directory]                    // show change history for file/d
 
 Make a change :
 ```
-git add <filename>                              // stage a file with given filename
-git add .                                       // stage all changed files, ready for commit 	
+git add [file]                                  // stage a file with given filename
+git add .                                       // stage all changed files, ready for commit
 => git co -m "Commit message"                   // commit staged files
 => git save Commit message                      // stage and commit files with message
 => git amend Commit message                     // make stage & commit with amend
-git checkout -- <filename> 						// undo specific file
-git revert <commit> 		// generate a new commit that undoes all of the changes introduced in <commit>
+git reset [file]                                // unstages file, keeping the changes
+git checkout -- [filename]                      // undo specific file if unstaged
+git reset --hard                                // revert everything to the last commit
+git revert [commit]                             // generate a new commit that undoes all of the changes introduced in [commit]
+=> git unstage                                  // remove everything what was prepared for commit (git reset HEAD --)
+```
+
+-------------------
+Stash
+```
+git stash list                                   // show stashes
+git stash                                        // save stash
+git stash apply                                  // get the changes from top/last stash
+git stash apply [id]                             // get the changes from specified stash
+git stash drop                                   // clear stash
+=> git sth                                       // stash with untracked files too
 ```
 
 -------------------
@@ -97,14 +111,7 @@ git tag -a UMnieDziala -m "Tag message" 		// create new tag with message
 git tag 1.0.0 <commitID>	//use tagging to mark a significant changeset, such as a release
 git push --tags origin 		//push all tags to remote repository
 ```
--------------------
-Stash
-```
-git stash list 	// show stashes
-git stash 		// save stash
-git stash apply		// get changes from stash
-git stash drop		// clear stash
-```
+
 -------------------
 ##### Git Rebase For Linear History
 ```
