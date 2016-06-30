@@ -170,6 +170,23 @@ This will take all the commits from the bugfix branch, squash them into 1 commit
 
 -------------------
 
+##### Squash N commits
+
+In order to squash N commit we could use the following commands:
+```
+git reset --soft HEAD~[N] && git commit
+```
+If you want to start editing the new commit message with a concatenation of the existing commit messages (i.e. similar to what a pick/squash/squash/…/squash git rebase -i instruction list would start you with), then you need to extract those messages and pass them to git commit:
+```
+git reset --soft HEAD~3 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
+```
+or just use prepared alias for this (git squash N):
+```
+squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+```
+
+-------------------
+
 ##### Rebasing new branch instead of merging
 ```
 git checkout experiment                // switch to that branch
@@ -235,7 +252,7 @@ There is a special alias ```updatefork``` in order to fetch upstream, checkout m
 - https://github.com/jakubnabrdalik/gitkurwa (see there the links to source of that great set of aliases), it was main inspiration for this Cheat Sheet
 - http://helion.pl/ksiazki/git-rozproszony-system-kontroli-wersji-wlodzimierz-gajda,gitroz.htm
 - ZeroTurnaround Git Cheat Sheet
-- StackOverflow :)
+- StackOverflow :) I was trying to plus each used here solution!
 
 
 ### Feel free to create pull request!
