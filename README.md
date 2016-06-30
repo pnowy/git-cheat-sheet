@@ -1,4 +1,4 @@
-# GITTE - GIT USEFUL COMMANDS
+# GITTE - GIT USEFUL COMMANDS / GIT CHEAT SHEET
 
 ##### Commands marked with '=>' are aliases. See .gitconfig file for details.
 
@@ -9,7 +9,7 @@ Display defined aliases
 
 -------------------
 
-Create a new repository
+Create a repository
 ```
 git init                           // init empty repository
 git clone remoteRepo localDir      // clone git repo to local directory
@@ -18,14 +18,14 @@ git clone remoteRepo localDir      // clone git repo to local directory
 
 -------------------
 
-Repo status
+Observe your repository
 ```
 => git s                                       // git status
 => git st                                      // git status -sb
 ```
 ------------------
 
-Staging & commit :
+Make a change :
 ```
 git add <filename>                              // add file with given filename
 git add *                                       // add all files 	
@@ -45,12 +45,19 @@ git revert <commit> 		// generate a new commit that undoes all of the changes in
 ```
 
 -------------------
-Remote repositories
 
-	git remote 		// check defined remote repositories
-	git remote add origin <remote repo address> 	// add remote repository
-
+Synchronize
+```
+git remote 		// check defined remote repositories
+git remote add origin <remote repo address> 	// add remote repository
+git push -u origin <branch name>		// push given branch to origin remote repo with tracking
+git push origin --delete quickFix	// delete remote branch
+git fetch origin		// get the changes from remote repo (without merge)
+git pull origin/master	// get the changes and merge
+git pull --rebase origin/master //get the changes and do rebase
+```
 -------------------
+
 Branches
 ```
 git br                                                  // git branch
@@ -71,40 +78,32 @@ git merge <branch name> --no-commit --no-ff // merge to actual branch without fa
 git checkout experiment # switch to that branch
 git rebase master # rebase it to selected branch, in this case move it on the top of the master
 ```
--------------------
-Push && Pull
-
-	git push -u origin <branch name>		// push given branch to origin remote repo with tracking
-	git push origin --delete quickFix	// delete remote branch
-	git fetch origin		// get the changes from remote repo (without merge)
-	git pull origin/master	// get the changes and merge
-	git pull --rebase origin/master //get the changes and do rebase
 
 -------------------
 Tags
-
-	git tag											// list of tags
-	git tag UMnieDziala								// create new tag
-	git tag -a UMnieDziala -m "Tag message" 		// create new tag with message
-	git tag 1.0.0 <commitID>	//use tagging to mark a significant changeset, such as a release
-	git push --tags origin 		//push all tags to remote repository
-
+```
+git tag											// list of tags
+git tag UMnieDziala								// create new tag
+git tag -a UMnieDziala -m "Tag message" 		// create new tag with message
+git tag 1.0.0 <commitID>	//use tagging to mark a significant changeset, such as a release
+git push --tags origin 		//push all tags to remote repository
+```
 -------------------
 Stash
-
-	git stash list 	// show stashes
-	git stash 		// save stash
-	git stash apply		// get changes from stash
-	git stash drop		// clear stash
-
+```
+git stash list 	// show stashes
+git stash 		// save stash
+git stash apply		// get changes from stash
+git stash drop		// clear stash
+```
 -------------------
 ##### Git Rebase For Linear History
-
-	$ git commit
-	$ git pull
-	$ git rebase -i origin/master
-	$ git push origin master
-
+```
+git commit
+git pull
+git rebase -i origin/master
+git push origin master
+```
 --------------------------
 #### Modify specified commit
 
