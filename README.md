@@ -11,9 +11,9 @@ Display defined aliases
 
 Create a repository
 ```
-git init                           // init empty repository
-git clone remoteRepo localDir      // clone git repo to local directory
-=> git makegitrepo                 // create git repo, add README.md file and make initial commit
+git init                               // init empty repository
+git clone [remoteRepo] [localDir]      // clone git repo to local directory
+=> git makegitrepo                     // create git repo, add README.md file and make initial commit
 ```
 
 -------------------
@@ -22,43 +22,38 @@ Observe your repository
 ```
 => git s                                       // git status
 => git st                                      // git status -sb
+git diff                                       // show changes to files not yet staged
+=> git difff                                   // highlight changed words using only colors (without plus and minus)
+git diff HEAD                                  // show all staged and unstaged changes
+git diff commit1 commit2                       // show the changes between two commits ids
+git diff <branch name>                         // show the changes regarding other branch
+git diff --stat [firstBranch] <secondBranch>   // compare two branches based on statistics
+git blame                                      // annotate the file
+git log                                        // show full change history
+git log -p [file/directory]                    // show change history for file/direcotyr including diffs
+=> git llog                                    // show pretty list of lat 25 commits (id, timestamp, user, message)
+=> git ltree                                   // show pretty graph from logs
+=> git hist                                    // show pretty graph with history
+=> git histfull                                // show pretty graph with history + changed files
+=> git changelog                               // show commit messages list
+=> git changelogextended                       // show commit messages list with date, author, etc.
 ```
 ------------------
 
 Make a change :
 ```
-git add <filename>                              // add file with given filename
-git add *                                       // add all files 	
+git add <filename>                              // stage a file with given filename
+git add .                                       // stage all changed files, ready for commit 	
 => git co -m "Commit message"                   // commit staged files
 => git save Commit message                      // stage and commit files with message
-=> git amend Commit message                     // make stage & commit with amend 
-```
-
--------------------
-
-Undo local changes && differences
-```
+=> git amend Commit message                     // make stage & commit with amend
 git checkout -- <filename> 						// undo specific file
-git diff <branch name>							// compare changes with other branch
-git diff --stat <firstBranch> <secondBranch>	// compare two branches based on statistics
 git revert <commit> 		// generate a new commit that undoes all of the changes introduced in <commit>
 ```
 
 -------------------
 
-Synchronize
-```
-git remote 		// check defined remote repositories
-git remote add origin <remote repo address> 	// add remote repository
-git push -u origin <branch name>		// push given branch to origin remote repo with tracking
-git push origin --delete quickFix	// delete remote branch
-git fetch origin		// get the changes from remote repo (without merge)
-git pull origin/master	// get the changes and merge
-git pull --rebase origin/master //get the changes and do rebase
-```
--------------------
-
-Branches
+Working with branches
 ```
 git br                                                  // git branch
 git ch                                                  // git checkout
@@ -80,6 +75,20 @@ git rebase master # rebase it to selected branch, in this case move it on the to
 ```
 
 -------------------
+
+Synchronize
+```
+git remote 		// check defined remote repositories
+git remote add origin <remote repo address> 	// add remote repository
+git push -u origin <branch name>		// push given branch to origin remote repo with tracking
+git push origin --delete quickFix	// delete remote branch
+git fetch origin		// get the changes from remote repo (without merge)
+git pull origin/master	// get the changes and merge
+git pull --rebase origin/master //get the changes and do rebase
+```
+
+-------------------
+
 Tags
 ```
 git tag											// list of tags
@@ -150,3 +159,4 @@ git push -f origin master
 
 - https://github.com/jakubnabrdalik/gitkurwa
 - http://helion.pl/ksiazki/git-rozproszony-system-kontroli-wersji-wlodzimierz-gajda,gitroz.htm?utm_campaign=videopoint&utm_medium=redirect&utm_source=
+- ZeroTurnaround Git Cheat Sheet
