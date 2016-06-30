@@ -90,6 +90,7 @@ git checkout [branchB] && git merge [branchA]      // merge branchA into branchB
 git merge --no-ff [branch]                         // merge to actual branch without fast forward
 => git mergenoff [branch]                          // merge to actual branch without fast forward
 git merge [branch] --no-commit --no-ff             // merge to actual branch without fast forward and auto commit
+=> git squashmerge [branch]                        // merge different branch with auto squash to single commit
 ```
 
 -------------------
@@ -155,11 +156,25 @@ git push --tags origin                              // push all tags to remote r
 
 # TIPS & TRICKS
 
+##### Merge with squash
+
+Say your bug fix branch is called bugfix and you want to merge it into master:
+```
+git checkout master
+git merge --squash bugfix (you could use also defined alias git squashmerge [branch])
+git commit
+```
+
+This will take all the commits from the bugfix branch, squash them into 1 commit and then merge it with your master branch.
+
+-------------------
+
 ##### Rebasing new branch instead of merging
 ```
 git checkout experiment                // switch to that branch
 git rebase master                      // rebase it to selected branch, in this case move it on the top of the master
 ```
+
 -------------------
 
 ##### Git Rebase For Linear History
