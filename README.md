@@ -193,7 +193,7 @@ git checkout experiment                // switch to that branch
 git rebase master                      // rebase it to selected branch, in this case move it on the top of the master
 ```
 
--------------------
+--------------------------
 
 ##### Git Rebase For Linear History
 ```
@@ -201,6 +201,15 @@ git commit
 git pull
 git rebase -i origin/master
 git push origin master
+```
+
+--------------------------
+
+##### Remove unwanted files from last Git commit
+```
+git reset --soft HEAD~1
+git reset HEAD path/to/unwanted_file
+git commit -c ORIG_HEAD                 // now commit again, you can even re-use the same commit message
 ```
 
 --------------------------
