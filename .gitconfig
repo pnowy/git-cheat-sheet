@@ -117,7 +117,7 @@
     #    git backup This is very important commit...
     #    git backup "This is very important commit..."
     #
-    backup = "!backup() { git snapshot "\"$*\""; git push; }; backup"
+    backup = "!backup() { git save "\"$*\""; git push; }; backup"
 
     # Alias: stat - generate repo statistics
     # Example:
