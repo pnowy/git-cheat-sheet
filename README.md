@@ -205,6 +205,12 @@ git push origin master
 
 --------------------------
 
+##### Reset local branch to remote repo state (if the remote branch is not ahead of course)
+```
+git reset --hard origin/master
+```
+--------------------------
+
 ##### Remove unwanted files from last Git commit
 ```
 git reset --soft HEAD~1
