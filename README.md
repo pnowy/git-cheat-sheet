@@ -85,7 +85,7 @@ git checkout -b [branch] origin/[branch]           // for older version of Git c
 git checkout -b [branch]                           // create and switch to new branch
 git branch [branch]                                // create new local branch with given name
 git branch -d [branch]                             // delete local branch with given name
-git branch -dr origin/[branch]                     // delete remote branch with given name
+git push origin --delete [branch]                  // delete remote branch
 git merge [branch]                                 // merge to actual branch from given branch name
 git checkout [branchB] && git merge [branchA]      // merge branchA into branchB
 git merge --no-ff [branch]                         // merge to actual branch without fast forward
@@ -108,7 +108,6 @@ git remote add origin [remoteRepo]                 // add remote repository
 git push -u origin [branch]                        // push given branch to origin remote repo with tracking
 => git publish                                     // pushes the current branch to the origin (or different repo if is provided as param)
 => git unpublish                                   // deletes the remote version of current branch in origin (or different repo if provided as param)
-git push origin --delete [branch]                  // delete remote branch
 => git trackallbranches                            // get all remote branches
 => git updateallbranches                           // pull (update) all remote branches
 => git showorigin                                  // display the branches on origin, who modified, when, etc. useful for gitflow
