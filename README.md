@@ -84,7 +84,8 @@ git checkout [branch]                              // switch to specific branch 
 git checkout -b [branch] origin/[branch]           // for older version of Git checkout remote branch
 git checkout -b [branch]                           // create and switch to new branch
 git branch [branch]                                // create new local branch with given name
-git branch -d [branch]                             // delete branch with given name
+git branch -d [branch]                             // delete local branch with given name
+git branch -dr origin/[branch]                     // delete remote branch with given name
 git merge [branch]                                 // merge to actual branch from given branch name
 git checkout [branchB] && git merge [branchA]      // merge branchA into branchB
 git merge --no-ff [branch]                         // merge to actual branch without fast forward
