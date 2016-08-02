@@ -85,11 +85,13 @@ git checkout -b [branch] origin/[branch]           // for older version of Git c
 git checkout -b [branch]                           // create and switch to new branch
 git branch [branch]                                // create new local branch with given name
 git branch -d [branch]                             // delete local branch with given name
+=> git branchdelete [branch]                       // delete remote (on origin repo) and local branch
 git push origin --delete [branch]                  // delete remote branch
 git merge [branch]                                 // merge to actual branch from given branch name
 git checkout [branchB] && git merge [branchA]      // merge branchA into branchB
 git merge --no-ff [branch]                         // merge to actual branch without fast forward
 => git mergenoff [branch]                          // merge to actual branch without fast forward
+=> git mergenocommit [branch]                      // merge to actual branch without commit
 git merge [branch] --no-commit --no-ff             // merge to actual branch without fast forward and auto commit
 => git mergesquash [branch]                        // merge different branch with auto squash to single commit
 => git squash [N]                                  // squash last N commits
