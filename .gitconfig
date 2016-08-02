@@ -52,6 +52,7 @@
     bbranch = branch -v    
     branches = branch -avvl
     mergenoff = merge --no-ff
+    mergenocommit = merge --no-commit
     purr = pull --rebase
     puff = pull --ff-only
     rp   = rev-parse --short=4
@@ -84,7 +85,9 @@
     publish = "!sh -c 'git push -u ${1:-origin} $(git branch-name)' -"
     # Deletes the remote version of the current branch from the remote "origin" (or the remote passed as the parameter)
     unpublish = "!sh -c 'set -e; git push ${1:-origin} :$(git branch-name);git branch --unset-upstream $(git branch-name)' -"
-	
+    # delete romote (on origin repo) and local branch
+    branchdelete = "!f(){ git push origin --delete ${1} && git branch -D ${1}; };f"
+    
     # Basic repo information / what was going on while you were away
     whois = "!sh -c 'git log -i -1 --pretty=\"format::%an <%ae>\n\" --author=\"$1\"' -"
     whatis = show -s --pretty='tformat::%h (%s, %ad)' --date=short
