@@ -264,6 +264,13 @@ git push -f origin master
 
 There is a special alias ```updatefork``` in order to fetch upstream, checkout master, rebase and push to our origin repo.
 
+##### CHECKOUT PULL REQUEST LOCALLY FROM GITHUB
+
+```
+git fetch origin pull/ID/head:BRANCHNAME
+[master] $ git checkout BRANCHNAME
+```
+
 ### Sources:
 
 - https://github.com/jakubnabrdalik/gitkurwa (see there the links to source of that great set of aliases), it was main inspiration for this Cheat Sheet
