@@ -271,6 +271,13 @@ git fetch origin pull/ID/head:BRANCHNAME
 [master] $ git checkout BRANCHNAME
 ```
 
+##### LIST MERGED / NO MERGED BRANCHES
+```
+git branch --merged master 		# lists branches merged into master
+git branch --merged 			# lists branches merged into HEAD (i.e. tip of current branch)
+git branch --no-merged			# lists branches that have not been merged
+```
+
 ### Sources:
 
 - https://github.com/jakubnabrdalik/gitkurwa (see there the links to source of that great set of aliases), it was main inspiration for this Cheat Sheet
